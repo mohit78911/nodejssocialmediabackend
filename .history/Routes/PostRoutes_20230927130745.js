@@ -48,7 +48,7 @@ router.post("/post", async (req, res) => {
       city: req.body.city,
       pincode: req.body.pincode,
       state: req.body.state,
-      phonenumber: req.body.phonenumber,
+      phonenumber: req.body.phonenumber, 
       gender: req.body.gender,
     },
     comment: {
@@ -56,20 +56,20 @@ router.post("/post", async (req, res) => {
       comment: req.body.comment,
     },
   });
-
-  //jwt_token_generate_function
+  
   const token = jwt.sign({ newData }, SECRET_KEY);
+
   newData
     .save()
     .then((result) => {
       res.status(200).json({ post_User: result, token: token });
-      console.log("Post Data Added");
+      console.log("post Data Added");
       console.log("userData", newData.user.name);
     })
     .catch((error) => {
-      res.send("Post Data Can't Added");
+      res.send("post data can't added");
       res.end();
-      console.log('Post Data Can"t Added');
+      console.log('post data can"t added');
     });
 });
 

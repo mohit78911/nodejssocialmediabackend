@@ -63,13 +63,13 @@ router.post("/post", async (req, res) => {
     .save()
     .then((result) => {
       res.status(200).json({ post_User: result, token: token });
-      console.log("Post Data Added");
+      console.log("post Data Added");
       console.log("userData", newData.user.name);
     })
     .catch((error) => {
-      res.send("Post Data Can't Added");
+      res.send("post data can't added");
       res.end();
-      console.log('Post Data Can"t Added');
+      console.log('Post data can"t added');
     });
 });
 

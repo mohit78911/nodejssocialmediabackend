@@ -67,7 +67,7 @@ router.post("/post", async (req, res) => {
       console.log("userData", newData.user.name);
     })
     .catch((error) => {
-      res.send("Post Data Can't Added");
+      res.send("Post Data can't added");
       res.end();
       console.log('Post Data Can"t Added');
     });
