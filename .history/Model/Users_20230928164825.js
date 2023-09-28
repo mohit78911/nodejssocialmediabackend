@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
     state: String,
     phonenumber: Number,
     gender: String,
+    
   },
   { timestamps: true }
 );

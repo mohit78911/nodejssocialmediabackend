@@ -36,7 +36,9 @@ router.get("/findbyid/:id", (req, res) => {
 });
 
 //adding_Post_Data
-router.post("/post", async (req, res) => { 
+router.post("/post", async (req, res) => {
+   
+
   const newData = await posts.create({
     _id: new mongoose.Types.ObjectId(),
     description: req.body.description,
