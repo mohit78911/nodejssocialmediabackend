@@ -1,0 +1,111 @@
+const mongoose = require("mongoose");
+const express = require("express");
+const router = express.Router();
+const comments = require("../Model/comments");
+const users = require("../Model/users");
+const joi = require("joi");
+const validator = require("express-joi-validation");
+const joiSchema = require("../ValidatoreSchema/commentValidate");
+
+//validation function
+function validate(req) {
+  const schema = {
+    comment: joi.string().required(),
+  };
+  return validator.body(req, schema);
+}
+
+//Get_Users_Comment
+router.get("/", async (req, res) => {
+  const commentData = await comments.find().populate("userId")
+  const commentDetails = commentData
+if(commentDetails <= 0){
+  
+}
+    .then((result) => {
+      res.status(200).json(result);
+      console.log("Comments Fetch Successfully");
+    })
+    .catch((error) => {
+      res.send(error);
+      res.end();
+      console.log("Comment Can't Fetch...");
+    });
+});
+
+//Get_Comment_By_Id
+router.get("/findbyid/:id", (req, res) => {
+  comments
+    .findOne({ _id: req.params.id })
+    .then((result) => {
+      res.status(200).json(result);
+      console.log("Comment Find With Id");
+    })
+    .catch((error) => {
+      res.send(error);
+      res.end();
+      console.log("Comment Can't Find");
+    });
+});
+
+//Posting_Comments_On_Post
+router.post("/postcomment", async (req, res) => {
+  let newData = await comments.create({
+    _id: new mongoose.Types.ObjectId(),
+    comment: req.body.comment,
+    userId: req.body.userId,
+    postId: req.body.postId,
+  });
+  newData
+    .save()
+    .then((result) => {
+      res.status(200).json(result);
+      console.log("Comment Post Successfully");
+    })
+    .catch((error) => {
+      res.send(error);
+      res.end();
+      console.log("Error With Posting Comment...");
+    });
+});
+
+//Update_Comment_With_Id
+router.put("/update/:id", async (req, res) => {
+  comments
+    .updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          comment: req.body.comment,
+          userId: req.body.userId,
+          postId: req.body.postId,
+        },
+      }
+    )
+    .then((result) => {
+      res.status(200).json(result);
+      console.log("Comment Update Successfully");
+    })
+    .catch((error) => {
+      res.send(error);
+      res.end();
+      console.log("Error with Updating Comment...");
+    });
+});
+
+//deleting_Comment_With_Id
+router.delete("/delete/:id", (req, res) => {
+  comments
+    .deleteOne({ _id: req.params.id })
+    .then((result) => {
+      res.status(200).json(result);
+      console.log("Comment Deleted Successfully");
+    })
+    .catch((error) => {
+      res.send(error);
+      res.end();
+      console.log("Error With Deleting Comment...");
+    });
+});
+
+module.exports = router;
