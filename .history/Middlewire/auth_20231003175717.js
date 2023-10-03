@@ -1,8 +1,11 @@
 const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "iamdoingmyworkinnodejsandreactjs";
 
+const config = process.env;
+
 const verifyToken = (req, res, next) => {
   const token = req.body.token || req.headers["authorization"];
+
   if (!token) {
     return res
       .status(403)

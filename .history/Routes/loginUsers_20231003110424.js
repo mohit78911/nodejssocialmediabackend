@@ -5,7 +5,6 @@ const Users = require("../Model/users");
 const secretKey = "iamdoingmyworkinnodejsandreactjs";
 const jwt = require("jsonwebtoken");
 const auth = require("../Middlewire/auth");
-const verifyToken = require("../Middlewire/verifyToken");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 
@@ -23,7 +22,7 @@ router.get("/user", async (req, res) => {
 });
 
 //signup
-router.post("/register", async (req, res) => {
+router.post("/post", async (req, res) => {
   try {
     const existinguser = await Users.findOne({
       email: req.body.email,
@@ -47,7 +46,7 @@ router.post("/register", async (req, res) => {
       userprofile: req.body.userprofile,
     });
 
-    const token = jwt.sign({ result }, secretKey);
+    const token = jwt.sign({ email: result.email, id: result._id }, secretKey);
 
     res.status(200).json({ userData: result, token: token });
     console.log("Data Added Successfully");
@@ -59,15 +58,8 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//User_login_Handler
-router.post("/login", auth, async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
-    // const validPassword = await bcrypt.compare(
-    //   req.body.password,
-    //   existinguser.password
-    // );
-    // if (!validPassword) return res.status(400).send("Invalid  password");
-
     const existinguser = await Users.findOne({
       email: req.body.email,
       password: req.body.password,
@@ -78,6 +70,7 @@ router.post("/login", auth, async (req, res) => {
     }
 
     const token = jwt.sign({ existinguser }, secretKey);
+
     res.status(200).json({ UserProfile_Accessed: existinguser, token: token });
     console.log("Login Successfully");
     console.log(token);
@@ -87,5 +80,16 @@ router.post("/login", auth, async (req, res) => {
     console.log("Error with Login");
   }
 });
+
+function verifyToken(req, res, next) {
+  const bearerHeader = req.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+}
 
 module.exports = router;

@@ -59,7 +59,8 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//User_login_Handler
+
+//User_login
 router.post("/login", auth, async (req, res) => {
   try {
     // const validPassword = await bcrypt.compare(

@@ -59,15 +59,10 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//User_login_Handler
-router.post("/login", auth, async (req, res) => {
+router.post("/login", verifyToken, async (req, res) => {
   try {
-    // const validPassword = await bcrypt.compare(
-    //   req.body.password,
-    //   existinguser.password
-    // );
-    // if (!validPassword) return res.status(400).send("Invalid  password");
 
+    const validPassword = await bcrypt.compare(req.body.password,)
     const existinguser = await Users.findOne({
       email: req.body.email,
       password: req.body.password,
@@ -87,5 +82,7 @@ router.post("/login", auth, async (req, res) => {
     console.log("Error with Login");
   }
 });
+
+
 
 module.exports = router;

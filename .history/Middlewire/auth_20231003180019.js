@@ -3,6 +3,7 @@ const TOKEN_KEY = "iamdoingmyworkinnodejsandreactjs";
 
 const verifyToken = (req, res, next) => {
   const token = req.body.token || req.headers["authorization"];
+
   if (!token) {
     return res
       .status(403)

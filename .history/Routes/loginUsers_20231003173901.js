@@ -59,7 +59,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//User_login_Handler
 router.post("/login", auth, async (req, res) => {
   try {
     // const validPassword = await bcrypt.compare(
@@ -70,7 +69,7 @@ router.post("/login", auth, async (req, res) => {
 
     const existinguser = await Users.findOne({
       email: req.body.email,
-      password: req.body.password,
+      password:   req.body.password,
     });
 
     if (!existinguser) {

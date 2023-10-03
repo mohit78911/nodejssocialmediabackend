@@ -59,18 +59,17 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//User_login_Handler
 router.post("/login", auth, async (req, res) => {
   try {
-    // const validPassword = await bcrypt.compare(
-    //   req.body.password,
-    //   existinguser.password
-    // );
-    // if (!validPassword) return res.status(400).send("Invalid  password");
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      existinguser.password
+    );
+    if (!validPassword) return res.status(400).send("Invalid  password");
 
     const existinguser = await Users.findOne({
       email: req.body.email,
-      password: req.body.password,
+      password: validPassword,
     });
 
     if (!existinguser) {
