@@ -18,15 +18,13 @@ function validate(req) {
 }
 
 //Get_Users_Comment
-router.get("/:postId", async (req, res) => {
-  const postId = req.params.postId;
-  console.log("postId", postId);
+router.get("/", async (req, res) => {
+  const postId = req.body.postId;
   const commentData = await comments
-    .find({ postId: postId })
+    .find({comment: ""})
     .populate("userId")
     .populate("postId");
   const commentDetails = commentData;
-  // console.log("commentData", commentData);
   if (!commentDetails) {
     res.status(400).json({ error: "Comment Not Found" });
     console.log("CommentNotFound!");

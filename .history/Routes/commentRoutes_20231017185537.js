@@ -20,7 +20,7 @@ function validate(req) {
 //Get_Users_Comment
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
-  console.log("postId", postId);
+  console.log("postId", req.body);
   const commentData = await comments
     .find({ postId: postId })
     .populate("userId")

@@ -18,11 +18,9 @@ function validate(req) {
 }
 
 //Get_Users_Comment
-router.get("/:postId", async (req, res) => {
-  const postId = req.params.postId;
-  console.log("postId", postId);
+router.get("/", async (req, res) => {
   const commentData = await comments
-    .find({ postId: postId })
+    .find({ postId: "postId" })
     .populate("userId")
     .populate("postId");
   const commentDetails = commentData;
