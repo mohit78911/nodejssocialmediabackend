@@ -11,6 +11,6 @@ mongoose
     console.log(`Server Connected with Database MongoDB`);
   })
   .catch(() => {
-    console.log("Not Connected with Database"); 
+    console.log("Not Connected with Database");
   });
  

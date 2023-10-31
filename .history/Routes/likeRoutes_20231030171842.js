@@ -12,7 +12,7 @@ router.get("/:postId", async (req, res) => {
     .populate("userId")
     .populate("postId");
   const likeDetails = likeData;
-  if (!likeDetails) {
+  if (!likeDetails) { 
     res.status(400).json({ error: "Not_Found" });
     console.log("Not_Found");
   }

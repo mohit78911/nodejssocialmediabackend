@@ -19,6 +19,13 @@ router.get("/:postId", async (req, res) => {
   res.send(likeDetails);
 });
 
+router.get("/", async (req, res) => {
+  const likeData = await likes.find().populate("userId").populate("postId");
+  if(!likeData){
+res.status(400).json({})
+  }
+});
+
 router.post("/likepost/:postId", async (req, res) => {
   const postId = req.params.postId;
   const userId = req.body.userId;
@@ -49,7 +56,7 @@ router.post("/likepost/:postId", async (req, res) => {
       console.log("like_Data_Done");
     })
     .catch((error) => {
-      res.status(500).json({ message: "Post_Not_Like" });
+      res.status(500).json({ error: "Post_Not_Like" });
       console.log("Post_Not_Like");
     });
 });

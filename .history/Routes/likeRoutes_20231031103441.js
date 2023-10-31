@@ -13,7 +13,7 @@ router.get("/:postId", async (req, res) => {
     .populate("postId");
   const likeDetails = likeData;
   if (!likeDetails) {
-    res.status(400).json({ error: "Not_Found" });
+    res.status(400).json({ error: "t_FoundNo" });
     console.log("Not_Found");
   }
   res.send(likeDetails);

@@ -5,18 +5,39 @@ const likes = require("../Model/like");
 const users = require("../Model/users");
 
 //get_Data
-router.get("/:postId", async (req, res) => {
-  const postId = req.params.postId;
-  const likeData = await likes
-    .find({ postId: postId })
-    .populate("userId")
-    .populate("postId");
-  const likeDetails = likeData;
-  if (!likeDetails) {
-    res.status(400).json({ error: "Not_Found" });
-    console.log("Not_Found");
-  }
-  res.send(likeDetails);
+// router.get("/:postId", async (req, res) => {
+//   const postId = req.params.postId;
+//   const likeData = await likes
+//     .find({ postId: postId })
+//     .populate("userId")
+//     .populate("postId");
+//   const likeDetails = likeData;
+//   if (!likeDetails) {
+//     res.status(400).json({ error: "Not_Found" });
+//     console.log("Not_Found");
+//   }
+//   res.send(likeDetails);
+// });
+
+// router.get("/likes", async (req, res) => {
+//   const likeData = await likes.find().populate("userId").populate("postId");
+//   if (!likeData) {
+//     res.status(400).json({ error: "Likes_dosen't_Find" });
+//   }
+//   res.send(likeData);
+//   console.log("Likes_Fetch_Done");
+// });
+
+router.get("/likes", async (req, res) => {
+  likes
+    .find()
+    .then((result) => {
+      res.status(200).json(result);
+      console.log("Likes_Fetch_Done");
+    })
+    .catch((error) => {
+      console.log(error, "LikesCan'tFetch...Error");
+    });
 });
 
 router.post("/likepost/:postId", async (req, res) => {
@@ -49,7 +70,7 @@ router.post("/likepost/:postId", async (req, res) => {
       console.log("like_Data_Done");
     })
     .catch((error) => {
-      res.status(500).json({ message: "Post_Not_Like" });
+      res.status(500).json({ error: "Post_Not_Like" });
       console.log("Post_Not_Like");
     });
 });

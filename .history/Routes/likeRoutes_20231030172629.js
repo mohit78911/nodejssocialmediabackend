@@ -16,7 +16,7 @@ router.get("/:postId", async (req, res) => {
     res.status(400).json({ error: "Not_Found" });
     console.log("Not_Found");
   }
-  res.send(likeDetails);
+  res.send(likeDetails); 
 });
 
 router.post("/likepost/:postId", async (req, res) => {

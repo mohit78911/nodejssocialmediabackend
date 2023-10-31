@@ -16,7 +16,7 @@ router.get("/:postId", async (req, res) => {
     res.status(400).json({ error: "Not_Found" });
     console.log("Not_Found");
   }
-  res.send(likeDetails);
+  res.send(likeDetails); 
 });
 
 router.post("/likepost/:postId", async (req, res) => {
@@ -91,5 +91,10 @@ router.delete("/delete/:postId", async (req, res) => {
       res.status(400).send("Error with deleting Like");
     });
 });
+
+
+likes.db
+
+
 
 module.exports = router;

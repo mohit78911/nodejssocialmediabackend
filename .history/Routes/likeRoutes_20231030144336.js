@@ -21,7 +21,7 @@ router.get("/:postId", async (req, res) => {
 
 router.post("/likepost/:postId", async (req, res) => {
   const postId = req.params.postId;
-  const userId = req.body.userId;
+  const userId = req.body.userId;  
 
   const existingLike = await likes.findOne({
     postId: postId,
@@ -49,7 +49,7 @@ router.post("/likepost/:postId", async (req, res) => {
       console.log("like_Data_Done");
     })
     .catch((error) => {
-      res.status(500).json({ message: "Post_Not_Like" });
+      res.status(500).json({ error: "Post_Not_Like" });
       console.log("Post_Not_Like");
     });
 });

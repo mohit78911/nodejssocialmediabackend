@@ -33,7 +33,7 @@ router.post("/postuser", async (req, res) => {
     userId,
   });
   const newPostData = await newData.save();
-  console.log("Post_added_Done");
+  console.log("Post_added_Done  ");
   if (!newPostData) {
     return res.status(400).json({ error: "DATA NOT FOUND" });
   }
