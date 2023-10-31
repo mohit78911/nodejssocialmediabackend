@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
       return res.send("User Already Exists");
     }
     //hashing_password
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10); 
     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     const result = await Users.create({
@@ -114,8 +114,8 @@ router.post("/login", async (req, res) => {
       );
       existinguser.token = token;
       console.log("Login Successfully");
-      res.status(200).json({ success: "login_SuccessfulDone", token: token });
-      // const decode = jwt.decode(token);
+      res.status(200).json({ success: "loginSuccessfulDone", token: token });
+      const decode = jwt.decode(token);
       // console.log("Decoded_token : ", decode);
     }
   } catch (error) {

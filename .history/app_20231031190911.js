@@ -28,5 +28,4 @@ app.use("/likes", DataRoutes);
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "ErrorHandling", "404error.html"));
 });
-
 module.exports = app;

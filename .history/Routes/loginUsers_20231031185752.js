@@ -114,8 +114,8 @@ router.post("/login", async (req, res) => {
       );
       existinguser.token = token;
       console.log("Login Successfully");
-      res.status(200).json({ success: "login_SuccessfulDone", token: token });
-      // const decode = jwt.decode(token);
+      res.status(200).json({ success: "loginSuccessfulDone", token: token });
+      const decode = jwt.decode(token);
       // console.log("Decoded_token : ", decode);
     }
   } catch (error) {
